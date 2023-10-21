@@ -9,15 +9,15 @@ import {
   DropdownMenu,
   DropdownItem
 } from "@nextui-org/react";
-import logoSrc from "../../assets/logo.svg";
+import logoSrc from "../../assets/handshake.svg";
 
-export const Header = () => {
+export const Header = () => {  
   return (
-    <Navbar>
+    <Navbar className="bg-transparent">
       <NavbarContent>
-        <NavbarBrand>
-          <img src={logoSrc} className="block w-8 h-8 mr-2" />
-          <p className="font-bold text-inherit">CashCrowd</p>
+        <NavbarBrand as={Link} to="/">
+          <img src={logoSrc} className="block w-12 h-12 mr-2" />
+          <p className="font-bold text-inherit">CashCrowd Test</p>
         </NavbarBrand>
       </NavbarContent>
 
@@ -27,7 +27,7 @@ export const Header = () => {
             <Avatar
               isBordered
               as="button"
-              className="transition-transform"
+              className="ring-secondary transition-transform"
               color="primary"
               name="John Doe"
               size="sm"
@@ -39,8 +39,9 @@ export const Header = () => {
               <p className="font-semibold">Signed in as</p>
               <p className="font-semibold">john@example.com</p>
             </DropdownItem>
-            <DropdownItem key="settings">
-              <Link to="/settings">Settings</Link>
+            {/* @ts-ignore */}
+            <DropdownItem key="settings" as={Link} to="/settings">
+              Settings
             </DropdownItem>
             <DropdownItem key="logout" color="danger">
               Log Out
