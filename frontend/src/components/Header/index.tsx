@@ -39,6 +39,7 @@ export const Header = () => {
               <p className="font-semibold">Signed in as</p>
               <p className="font-semibold">john@example.com</p>
             </DropdownItem>
+            {/* @ts-ignore */}
             <DropdownItem key="settings" as={Link} to="/settings">
               Settings
             </DropdownItem>
