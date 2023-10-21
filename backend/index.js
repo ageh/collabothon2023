@@ -4,12 +4,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
+const cors_1 = __importDefault(require("cors"));
 const app = (0, express_1.default)();
 const host = "localhost";
 const port = 8585;
 var currentRequest = {};
 app.use(express_1.default.json());
 app.use(express_1.default.static("public"));
+app.use((0, cors_1.default)());
 app.get("/charities", (req, res) => {
     const charities = [
         {
@@ -59,12 +61,20 @@ app.get("/transactions", (req, res) => {
     res.send(transactions);
 });
 app.post("/request", (req, res) => {
+    console.log("POST REQUEST", req);
     currentRequest = req.body;
     res.send(200);
 });
 app.get("/request", (req, res) => {
     res.send(currentRequest);
+});
+app.put("/request", (req, res) => {
+    currentRequest = req.body;
+    res.send(200);
+});
+app.delete("/request", (req, res) => {
     currentRequest = {};
+    res.send(200);
 });
 app.listen(port, () => {
     console.log(`⚡️[server]: Server is running at http://localhost:${port}`);

@@ -155,7 +155,7 @@ export const GiverConfirmationModal = (props: {
   return (
     <Modal isOpen={props.isOpen ?? true} onClose={props.onClose}>
       <ModalContent>
-        <ModalHeader className="flex flex-col gap-1">Receiver Confirmation</ModalHeader>
+        <ModalHeader className="flex flex-col gap-1">Giver Confirmation</ModalHeader>
         <ModalBody>
           {renderStepSummary()}
           {renderActiveStepContent()}

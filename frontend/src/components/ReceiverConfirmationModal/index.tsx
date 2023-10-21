@@ -46,6 +46,7 @@ export const ReceiverConfirmationModal = (props: {
   }
 
   const renderActiveStepContent = () => {
+    if(!props.isOpen) return;
     if(activeStepIdx === 0) return (
       <>
         <QrReader

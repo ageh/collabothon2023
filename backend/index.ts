@@ -1,4 +1,5 @@
 import express, { Express, Request, Response } from "express";
+import cors from "cors";
 
 const app: Express = express();
 const host = "localhost";
@@ -7,6 +8,7 @@ var currentRequest = {};
 
 app.use(express.json());
 app.use(express.static("public"));
+app.use(cors());
 
 app.get("/charities", (req: Request, res: Response) => {
   const charities = [
@@ -60,6 +62,7 @@ app.get("/transactions", (req: Request, res: Response) => {
 });
 
 app.post("/request", (req: Request, res: Response) => {
+  console.log("POST REQUEST", req);
   currentRequest = req.body;
   res.send(200);
 });
