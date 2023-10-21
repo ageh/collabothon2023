@@ -3,6 +3,7 @@ import { AppRoot } from "./AppRoot";
 import { ErrorPage } from "./pages/Error";
 import { HomePage } from "./pages/Home";
 import { SettingsPage } from "./pages/Settings";
+import { QRPage } from "./pages/QR";
 
 const router = createBrowserRouter([
   {
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
         path: '/settings',
         element: <SettingsPage />,
       },
+      {
+        path: '/qr-page',
+        element: <QRPage />,
+      }
     ]
   },
 ]);
