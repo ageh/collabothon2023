@@ -1,0 +1,11 @@
+@import url("../../style.css");
+
+.own-bubble {
+    background-color: var(--sand);
+    color: var(--dark-petrol);
+}
+
+.other-bubble {
+    background-color: var(--dark-petrol);
+    color: var(--sand);
+}

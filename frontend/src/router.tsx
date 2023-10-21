@@ -3,6 +3,8 @@ import { AppRoot } from "./AppRoot";
 import { ErrorPage } from "./pages/Error";
 import { HomePage } from "./pages/Home";
 import { SettingsPage } from "./pages/Settings";
+import { MeetupPage } from "./pages/Meetup";
+import { TransferCompletedPage } from "./pages/TransferCompleted";
 
 const router = createBrowserRouter([
   {
@@ -18,6 +20,14 @@ const router = createBrowserRouter([
         path: '/settings',
         element: <SettingsPage />,
       },
+      {
+        path: '/meetup',
+        element: <MeetupPage />,
+      },
+      {
+        path: '/transfercompleted',
+        element: <TransferCompletedPage />,
+      }
     ]
   },
 ]);
