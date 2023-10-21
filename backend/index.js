@@ -7,6 +7,8 @@ const express_1 = __importDefault(require("express"));
 const app = (0, express_1.default)();
 const host = "localhost";
 const port = 8585;
+var currentRequest = {};
+app.use(express_1.default.json());
 app.use(express_1.default.static("public"));
 app.get("/charities", (req, res) => {
     const charities = [
@@ -56,9 +58,13 @@ app.get("/transactions", (req, res) => {
     ];
     res.send(transactions);
 });
+app.post("/request", (req, res) => {
+    currentRequest = req.body;
+    res.send(200);
+});
 app.get("/request", (req, res) => {
-    const request = { amount: 24, commission: 2 };
-    res.send(request);
+    res.send(currentRequest);
+    currentRequest = {};
 });
 app.listen(port, () => {
     console.log(`⚡️[server]: Server is running at http://localhost:${port}`);

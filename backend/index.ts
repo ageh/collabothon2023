@@ -3,7 +3,9 @@ import express, { Express, Request, Response } from "express";
 const app: Express = express();
 const host = "localhost";
 const port = 8585;
+var currentRequest = {};
 
+app.use(express.json());
 app.use(express.static("public"));
 
 app.get("/charities", (req: Request, res: Response) => {
@@ -57,9 +59,23 @@ app.get("/transactions", (req: Request, res: Response) => {
   res.send(transactions);
 });
 
+app.post("/request", (req: Request, res: Response) => {
+  currentRequest = req.body;
+  res.send(200);
+});
+
 app.get("/request", (req: Request, res: Response) => {
-  const request = { amount: 24, commission: 2 };
-  res.send(request);
+  res.send(currentRequest);
+});
+
+app.put("/request", (req: Request, res: Response) => {
+  currentRequest = req.body;
+  res.send(200);
+});
+
+app.delete("/request", (req: Request, res: Response) => {
+  currentRequest = {};
+  res.send(200);
 });
 
 app.listen(port, () => {
