@@ -6,7 +6,7 @@ import { useEffect } from "react";
 
 export const QRPage = () => {
     const {isOpen:isOpen1, onOpen:onOpen1, onOpenChange:onOpenChange1, onClose:onClose1} = useDisclosure();
-    const {isOpen:isOpen2, onOpen:onOpen2, onOpenChange:onOpenChange2, onClose:onClose2} = useDisclosure();
+    const {isOpen:isOpen2, onOpen:onOpen2, onOpenChange:onOpenChange2} = useDisclosure();
 
     useEffect(()=>{
         setTimeout(()=>onOpen1(), 4000)

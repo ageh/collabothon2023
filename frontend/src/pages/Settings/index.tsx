@@ -5,6 +5,7 @@ import {Switch} from "@nextui-org/react";
 
 export const SettingsPage = () => {
   return (
+    <div className="cc--page-settings container mx-auto px-6 pt-4">
       <Accordion>
         <AccordionItem key="1" aria-label="Accordion 1" title="Account Settings">
           some generic settings. Set currency, password etc.
@@ -41,5 +42,6 @@ export const SettingsPage = () => {
           </div>
         </AccordionItem>
       </Accordion>
-    );
+    </div>
+  );
 }

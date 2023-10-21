@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { QrReader } from "react-qr-reader";
+import QRCode from "qrcode.react";
 import { CheckOutlined } from "@ant-design/icons";
 import {
   Modal,
@@ -7,22 +7,41 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
-  Button
+  Button,
+  Spinner
 } from "@nextui-org/react";
 
-export const ReceiverConfirmationModal = (props: {
+export const GiverConfirmationModal = (props: {
   isOpen: boolean,
   onClose: () => void
 }) => {
   const steps = [ 'Identification', 'Transfer', 'Confirm' ];
   const [ activeStepIdx, setActiveStepIdx ] = useState(0);
+  const [ transferPending, setTransferPending ] = useState(false);
+  const [ handoverPending, setHandoverPending ] = useState(false);
 
-  useEffect(() => setActiveStepIdx(0), [props.isOpen]);
+  useEffect(() => {
+    setActiveStepIdx(0);
+    if(props.isOpen) setTimeout(() => setActiveStepIdx(1), 10000);
+  }, [props.isOpen]);
+  useEffect(() => {
+    if(activeStepIdx === 1) {
+      setTransferPending(true);
+      setTimeout(() => {
+        setTransferPending(false);
+        setActiveStepIdx(2);
+      }, 5000);
+    }
+    if(activeStepIdx === 2) {
+      setHandoverPending(true);
+      setTimeout(() => setHandoverPending(false), 10000);
+    }
+  }, [activeStepIdx]);
 
   const renderStepSummary = () => {
     return (
       <ol className="flex items-center justify-between w-full text-sm font-medium text-center text-gray-500 dark:text-gray-400 sm:text-base">
-        {steps.map((step, idx) => 
+        {steps.map((step, idx) =>
           (activeStepIdx > idx) ? (
             <li key={idx} className="flex md:w-full items-center text-blue-600 dark:text-blue-500 sm:after:content-[''] after:w-full after:h-1 after:border-b after:border-gray-200 after:border-1 after:hidden sm:after:inline-block after:mx-6 xl:after:mx-10 dark:after:border-gray-700">
               <span className={"flex items-center sm:after:hidden after:mx-2 after:text-gray-200 dark:after:text-gray-500" + ((idx+1 < steps.length) ? " after:content-['/']": "")}>
@@ -48,42 +67,55 @@ export const ReceiverConfirmationModal = (props: {
   const renderActiveStepContent = () => {
     if(activeStepIdx === 0) return (
       <>
-        <QrReader
-          constraints={{ facingMode: 'environment'}}
-          onResult={(result: any, error) => {
-            if(!!result) {
-              console.log(result?.text);
-              setActiveStepIdx(1);
-            }
-            if(!!error) console.error("Invalid QR reader result:", error);
-          }}
-        />
-
-        <p className="text-sm text-gray-400 text-center"> 
+        <div className="flex justify-center">
+          <QRCode
+            className="m-x-auto"
+            id="123456"
+            value="123456"
+            size={300}
+            level="H"
+            includeMargin={true}
+            renderAs="canvas"
+          />
+        </div>
+        <p className="text-sm text-gray-400 text-center">
           In order to make sure that you've actually met with the right person,
-          please first scan the QR code thats shown on the giver's phone.
+          please let the receiver scan the QR code thats shown on your phone.
         </p>
       </>
     );
     if(activeStepIdx === 1) return (
       <>
-        <p className="text-md text-gray-800 text-center"> 
-          Great, seems like you've met XYZ.
-          <br/>
-          Please confirm that you want to proceed and transfer the following amount to him/her:
+        <Spinner className="block mx-auto" />
+        <p className="text-md text-gray-800 text-center">
+          Please wait until XYZ has transferred the (digital) money:
         </p>
         <h2 className="font-medium text-2xl cc--text-primary text-center">30 €</h2>
+        <p className="text-sm mt-2 text-gray-400 text-center">
+          Please do not handover any cash yet, as you haven't received any money for the time being!
+        </p>
       </>
     );
     if(activeStepIdx === 2) return (
       <>
-        <p className="text-md text-center"> 
-          Your (digital) money has been transferred successfully to XYZ.
-        </p>
-        <p className="text-md text-gray-800 text-center">
-          After XYZ handed the cash to you, please confirm that you've actually received the following amount:
-        </p>
-        <h2 className="font-medium text-2xl cc--text-primary text-center">30 €</h2>
+        {(handoverPending) ? (
+          <>
+            <Spinner className="block mx-auto" />
+            <p className="text-md text-gray-800 text-center">
+              XYZ has transferred the (digital) money, please handover the following amount in cash:
+            </p>
+            <h2 className="font-medium text-2xl cc--text-primary text-center">30 €</h2>
+            <p className="text-sm mt-2 text-gray-400 text-center">
+              The receiver has to confirm that he/she actually received the cash from you.
+            </p>
+          </>
+        ) : (
+          <>
+            <p className="text-md text-gray-800 text-center">
+              FEEDBACK
+            </p>
+          </>
+        )}
       </>
     );
   }
@@ -95,24 +127,26 @@ export const ReceiverConfirmationModal = (props: {
       </Button>
     );
     if(activeStepIdx === 1) return (
-      <div>
-        <Button className="w-full mb-2 text-white" size="lg" color="success" variant="solid" onClick={() => setActiveStepIdx(2)}>
-          <CheckOutlined />
-          Transfer (Digital) Money
-        </Button>
-        <Button className="w-full" size="sm" color="danger" variant="flat" onClick={() => setActiveStepIdx(0)}>
+      <div className="w-full">
+        <Button className="w-full" size="sm" color="danger" variant="flat" onClick={props.onClose}>
           Abort Transaction
         </Button>
       </div>
     );
-    if(activeStepIdx === 2) return (
-      <div>
-        <Button className="w-full mb-2 text-white" size="lg" color="success" variant="solid" onClick={props.onClose}>
-          <CheckOutlined />
-          I've received the cash
-        </Button>
-        <Button className="w-full" size="sm" color="danger" variant="flat" onClick={() => setActiveStepIdx(1)}>
+    if(activeStepIdx === 2 && handoverPending) return (
+      <div className="w-full">
+        <Button className="w-full" size="sm" color="danger" variant="flat" onClick={props.onClose}>
           Abort Transaction
+        </Button>
+      </div>
+    );
+    if(activeStepIdx === 2 && !handoverPending) return (
+      <div className="w-full">
+        <Button className="w-full mb-2 text-white" size="lg" color="success" variant="solid" onClick={props.onClose}>
+          Go to Earnings
+        </Button>
+        <Button className="w-full" size="sm" color="default" variant="flat" onClick={props.onClose}>
+          Close Transaction
         </Button>
       </div>
     );
