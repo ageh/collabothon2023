@@ -1,3 +1,5 @@
+
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 import {
   Navbar,
@@ -9,15 +11,18 @@ import {
   DropdownMenu,
   DropdownItem
 } from "@nextui-org/react";
+import { GlobalContext } from "../../GlobalContext";
 import logoSrc from "../../assets/handshake.svg";
 
-export const Header = () => {
+export const Header = () => {  
+  const { modalReceiverConfirmationSetOpen } = useContext(GlobalContext);
+
   return (
-    <Navbar>
+    <Navbar className="bg-transparent">
       <NavbarContent>
-        <NavbarBrand>
+        <NavbarBrand as={Link} to="/">
           <img src={logoSrc} className="block w-12 h-12 mr-2" />
-          <p className="font-bold text-inherit">CashCrowd</p>
+          <p className="font-bold text-inherit">CashCrowd Test</p>
         </NavbarBrand>
       </NavbarContent>
 
@@ -27,7 +32,7 @@ export const Header = () => {
             <Avatar
               isBordered
               as="button"
-              className="transition-transform"
+              className="ring-secondary transition-transform"
               color="primary"
               name="John Doe"
               size="sm"
@@ -39,8 +44,12 @@ export const Header = () => {
               <p className="font-semibold">Signed in as</p>
               <p className="font-semibold">john@example.com</p>
             </DropdownItem>
-            <DropdownItem key="settings">
-              <Link to="/settings">Settings</Link>
+            {/* @ts-ignore */}
+            <DropdownItem key="settings" as={Link} to="/settings">
+              Settings
+            </DropdownItem>
+            <DropdownItem key="req-flow-receiver" onClick={() => modalReceiverConfirmationSetOpen(true)}>
+              Receiver Flow
             </DropdownItem>
             <DropdownItem key="logout" color="danger">
               Log Out

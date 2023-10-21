@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import 'mapbox-gl/dist/mapbox-gl.css';
 import App from "../../components/Map";
 //import '../../style.css'
