@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import { Button, Popover, PopoverContent, PopoverTrigger } from "@nextui-org/react";
 import commissionIconSrc from "../../assets/icons/commission.svg";
 import distanceIconSrc from "../../assets/icons/distance.svg";
