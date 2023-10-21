@@ -1,6 +1,6 @@
 /*tslint:disable*/
 import React, { useRef, useEffect, useState } from 'react';
-import handshake from "../../../assets/handshake.svg";
+import handshake from "../../assets/handshake.svg";
 import Map, {Marker} from 'react-map-gl';
  
 export default function App() {
