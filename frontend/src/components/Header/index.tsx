@@ -17,7 +17,7 @@ export const Header = () => {
       <NavbarContent>
         <NavbarBrand>
           <img src={logoSrc} className="block w-8 h-8 mr-2" />
-          <p className="font-bold text-inherit">CashCrowd</p>
+          <p className="font-bold text-inherit">CashCrowd Test</p>
         </NavbarBrand>
       </NavbarContent>
 
