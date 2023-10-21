@@ -2,10 +2,7 @@ import { Link } from "react-router-dom";
 import { Divider } from "@nextui-org/react";
 import { Button } from "@nextui-org/react";
 import { Card, CardBody } from "@nextui-org/react";
-import { Image } from "@nextui-org/react";
-
 import graph from "../../assets/graph.png";
-import increase from "../../assets/increase.png";
 
 export const EarningsPage = () => {
   // manually setting earning
