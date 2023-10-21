@@ -1,3 +1,28 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root:root {
+    --primary: #FFD700;
+    --primary-text: #002E3C;
+    --secondary-text: #7F959D;
+}
+
+.cc--text-primary {
+    color: var(--primary-text);
+}
+
+.cc--text-secondary {
+    color: var(--secondary-text);
+}
+
+.cc--page-home::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 15rem;
+    background: linear-gradient(0deg, transparent, #7f959d39);
+    z-index: -1;
+}
