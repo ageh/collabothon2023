@@ -1,11 +1,17 @@
 # Collabothon 2023
 
-This repository contains our submission for the FutureFintech challenge of the collabothon of 2023.
+This repository contains our submission for the FutureFintech challenge of Collabothon 2023 (Frankfurt).
+
+## Demo
+
+[Deployed on Azure](https://brave-desert-0451bd303.4.azurestaticapps.net/)
+
+## Description
 
 **CashCrowd** combines solving multiple problems:
 
 * How to get cash in (urgent) situations when you cannot get it from traditional sources (ATMs etc.)
-* Provide an incentive for people to micro-invest in startups from developing countries with a low barrier
+* Provide an incentive for people to micro-invest in startups from developing countries with close to no effort
 * Provide financial support to developing countries with close to no effort
 * Provide incentive to donate to charities with close to no effort
 
@@ -22,12 +28,23 @@ developing countries and startups. Money can also easily be withdrawn or donated
 a suitable charity.
 * Banks: Profit from "human" ATM machines. Also, cash is being converted to digital money and being automatically credited to the bank of the account holder.
 
-## Demo
+## Cash flow 
 
-[Deployed on Azure](https://brave-desert-0451bd303.4.azurestaticapps.net/)
+```mermaid
+graph TD
+    A -.->|1| B[CashCrowd]
+    B -.->|3| C["Greta (Giver - has cash)"]
+    C -->|2| A["Robert (Receiver - needs cash)"]
+```
+To prevent Greta's cash being stolen: 
+
+1. The amount of cash Robert needs is transferred to the middleman, CashCrowd. 
+2. Once the transfer of cash is complete, Greta is alerted and hands the (physical) cash to Robert.
+3. Robert confirms receipt of cash. CashCrowd transfers the digital amount to Greta's bank account directly. The tip Greta earns is credited to her CashCrowd account directly.
 
 ## Local Development Setup
 
     cd frontend
     yarn install
     yarn dev run
+
