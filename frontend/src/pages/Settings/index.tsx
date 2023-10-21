@@ -1,10 +1,19 @@
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
+import {Accordion, AccordionItem} from "@nextui-org/react";
 
 export const SettingsPage = () => {
   return (
-    <div className="cc--page-settings container mx-auto px-6">
-      <h1 className="font-bold text-2xl mb-4">Settings</h1>
-      <Link to="/">Home Page</Link>
-    </div>
-  );
+      <Accordion>
+        <AccordionItem key="1" aria-label="Accordion 1" title="Account Settings">
+          some generic settings. Set currency, password etc.
+        </AccordionItem>
+        <AccordionItem
+          key="2"
+          aria-label="Accordion 2"
+          title="Filters and Preferences"
+        >
+          some more text
+        </AccordionItem>
+      </Accordion>
+    );
 }
