@@ -1,13 +1,12 @@
 import 'mapbox-gl/dist/mapbox-gl.css';
-import App from "../../components/Map";
-//import '../../style.css'
-import './meetup.css'
+import './meetup.css';
+import { MapView } from "../../components/Map";
 
 export const MeetupPage = () => {
   return (
     <div className="cc--page-meetup container mx-auto px-6">
       <h1 className="font-bold text-2xl mb-4">Meetup</h1>
-      <App/>
+      <MapView />
         <div className="bg-white shadow-md rounded-lg w-full">
             <div id="chatbox" className="p-4 h-60 overflow-y-auto">
               <div className="mb-2 text-right">
