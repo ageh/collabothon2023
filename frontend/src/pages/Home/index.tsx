@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button, Input } from "@nextui-org/react";
+import { AlertModal } from "../../components/AlertModal";
 
 export const HomePage = () => {
   const [ amount, setAmount ] = useState(30);
@@ -44,6 +45,8 @@ export const HomePage = () => {
       >
         Test Page
       </Button>
+      <AlertModal/>
     </div>
+    
   );
 }
