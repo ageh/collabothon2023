@@ -5,6 +5,7 @@ import { HomePage } from "./pages/Home";
 import { SettingsPage } from "./pages/Settings";
 import { QRPage } from "./pages/QR";
 import { EarningsPage } from "./pages/Earnings";
+import { DonationPage } from "./pages/Donation";
 
 const router = createBrowserRouter([
   {
@@ -21,12 +22,16 @@ const router = createBrowserRouter([
         element: <SettingsPage />,
       },
       {
-        path: '/qr-page',
+        path: "/qr-page",
         element: <QRPage />,
       },
       {
         path: "/earnings",
         element: <EarningsPage />,
+      },
+      {
+        path: "/donation",
+        element: <DonationPage />,
       },
     ],
   },

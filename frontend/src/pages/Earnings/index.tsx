@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Divider } from "@nextui-org/react";
 import { Button } from "@nextui-org/react";
 import { Card, CardBody } from "@nextui-org/react";
@@ -51,7 +52,13 @@ export const EarningsPage = () => {
               <Button className="" radius="full" color="success">
                 Deposit
               </Button>
-              <Button className=" ml-2" radius="full" color="danger">
+              <Button
+                className=" ml-2"
+                radius="full"
+                color="danger"
+                as={Link}
+                to="/donation"
+              >
                 Donate
               </Button>
             </div>
