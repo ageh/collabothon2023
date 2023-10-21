@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { useContext, useMemo } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import QRCode from "qrcode.react";
-import { CheckOutlined } from "@ant-design/icons";
 import {
   Modal,
   ModalContent,
@@ -8,35 +8,30 @@ import {
   ModalBody,
   ModalFooter,
   Button,
-  Spinner
+  Spinner,
+  Divider
 } from "@nextui-org/react";
+import { GlobalContext } from "../../GlobalContext";
+import { CheckCircleOutlined } from "@ant-design/icons";
+import rating_icon_handshake_yellow from "../../assets/rating_icon_handshake_yellow.svg";
+import rating_icon_handshake_grey from "../../assets/rating_icon_handshake_grey.svg";
+import rating_icon_handshake_half from "../../assets/rating_icon_handshake_half.svg";
+import profile from "../../assets/profile.png";
 
 export const GiverConfirmationModal = (props: {
   isOpen: boolean,
   onClose: () => void
 }) => {
-  const steps = [ 'Identification', 'Transfer', 'Confirm' ];
-  const [ activeStepIdx, setActiveStepIdx ] = useState(0);
-  const [ transferPending, setTransferPending ] = useState(false);
-  const [ handoverPending, setHandoverPending ] = useState(false);
+  const navigate = useNavigate();
+  const { activeRequest, handleAbort } = useContext(GlobalContext);
 
-  useEffect(() => {
-    setActiveStepIdx(0);
-    if(props.isOpen) setTimeout(() => setActiveStepIdx(1), 10000);
-  }, [props.isOpen]);
-  useEffect(() => {
-    if(activeStepIdx === 1) {
-      setTransferPending(true);
-      setTimeout(() => {
-        setTransferPending(false);
-        setActiveStepIdx(2);
-      }, 5000);
-    }
-    if(activeStepIdx === 2) {
-      setHandoverPending(true);
-      setTimeout(() => setHandoverPending(false), 10000);
-    }
-  }, [activeStepIdx]);
+  const steps = [ 'Identification', 'Transfer', 'Confirm' ];
+
+  const activeStepIdx = useMemo(() => {
+    if(!activeRequest?.identificationConfirmed) return 0;
+    else if(!activeRequest?.transferConfirmed) return 1;
+    else return 2;
+  }, [activeRequest]);
 
   const renderStepSummary = () => {
     return (
@@ -90,62 +85,120 @@ export const GiverConfirmationModal = (props: {
         <p className="text-md text-gray-800 text-center">
           Please wait until XYZ has transferred the (digital) money:
         </p>
-        <h2 className="font-medium text-2xl cc--text-primary text-center">30 €</h2>
+        <h2 className="font-medium text-2xl cc--text-primary text-center">
+          {activeRequest?.amount}
+          <span className="text-sm">€ (+ {activeRequest?.commission} €)</span>
+        </h2>
         <p className="text-sm mt-2 text-gray-400 text-center">
           Please do not handover any cash yet, as you haven't received any money for the time being!
         </p>
       </>
     );
     if(activeStepIdx === 2) return (
-      <>
-        {(handoverPending) ? (
-          <>
-            <Spinner className="block mx-auto" />
-            <p className="text-md text-gray-800 text-center">
-              XYZ has transferred the (digital) money, please handover the following amount in cash:
-            </p>
-            <h2 className="font-medium text-2xl cc--text-primary text-center">30 €</h2>
-            <p className="text-sm mt-2 text-gray-400 text-center">
-              The receiver has to confirm that he/she actually received the cash from you.
-            </p>
-          </>
-        ) : (
-          <>
-            <p className="text-md text-gray-800 text-center">
-              FEEDBACK
-            </p>
-          </>
-        )}
-      </>
+      (!activeRequest?.handoverConfirmed) ? (
+        <>
+          <Spinner className="block mx-auto" />
+          <p className="text-md text-gray-800 text-center">
+            XYZ has transferred the (digital) money, please handover the following amount in cash:
+          </p>
+          <h2 className="font-medium text-2xl cc--text-primary text-center">
+            {activeRequest?.amount}
+            <span className="text-sm">€ (+ {activeRequest?.commission} €)</span>
+          </h2>
+          <p className="text-sm mt-2 text-gray-400 text-center">
+            The receiver has to confirm that he/she actually received the cash from you.
+          </p>
+        </>
+      ) : (
+        <p className="text-md text-gray-800 text-center">
+          <div className="w-full text-center mt-5">
+            <CheckCircleOutlined className="text-green-800 text-5xl" />
+            <h1 className="font-bold text-xl mt-4">Transfer Completed</h1>
+            <Divider className="my-5" />
+
+            <h2 className="font-bold my-3">Rate John</h2>
+
+            <div>
+              <img
+                className="inline"
+                src={profile}
+                width="50px"
+                height="100%"
+              ></img>
+
+              <div className="inline items-center space-x-1 mt-5 p-4">
+                <img
+                  src={rating_icon_handshake_yellow}
+                  className="inline w-10 h-8"
+                />
+                <img
+                  src={rating_icon_handshake_yellow}
+                  className="inline w-10 h-8"
+                />
+                <img
+                  src={rating_icon_handshake_yellow}
+                  className="inline w-10 h-8"
+                />
+                <img
+                  src={rating_icon_handshake_half}
+                  className="inline w-10 h-8"
+                />
+                <img
+                  src={rating_icon_handshake_grey}
+                  className="inline w-10 h-8"
+                />
+              </div>
+            </div>
+
+            <h2 className="font-medium text-l mt-1">
+              You've received {activeRequest?.amount} €
+            </h2>
+            <h2 className="font-medium text-l mt-1">and</h2>
+            <h2 className="font-bold text-3xl mt-2 text-green-700">
+              {activeRequest?.commission} €
+            </h2>
+            <h2 className="font-medium text-l mt-1">commission</h2>
+          </div>
+        </p>
+      )
     );
   }
 
   const renderActiveStepActions = () => {
     if(activeStepIdx === 0) return (
-      <Button className="w-full" size="sm" color="danger" variant="flat" onClick={props.onClose}>
+      <Button className="w-full" size="sm" color="danger" variant="flat" onClick={handleAbort}>
         Abort Transaction
       </Button>
     );
     if(activeStepIdx === 1) return (
       <div className="w-full">
-        <Button className="w-full" size="sm" color="danger" variant="flat" onClick={props.onClose}>
+        <Button className="w-full" size="sm" color="danger" variant="flat" onClick={handleAbort}>
           Abort Transaction
         </Button>
       </div>
     );
-    if(activeStepIdx === 2 && handoverPending) return (
+    if(activeStepIdx === 2 && !activeRequest?.handoverConfirmed) return (
       <div className="w-full">
-        <Button className="w-full" size="sm" color="danger" variant="flat" onClick={props.onClose}>
+        <Button className="w-full" size="sm" color="danger" variant="flat" onClick={handleAbort}>
           Abort Transaction
         </Button>
       </div>
     );
-    if(activeStepIdx === 2 && !handoverPending) return (
+    if(activeStepIdx === 2 && activeRequest?.handoverConfirmed) return (
       <div className="w-full">
-        <Button className="w-full mb-2 text-white" size="lg" color="success" variant="solid" onClick={props.onClose}>
+        <Button
+          className="w-full mb-2 text-white"
+          size="lg"
+          color="success"
+          variant="solid"
+          onClick={() => {
+            handleAbort();
+            navigate('/earnings');
+          }}
+        >
           Go to Earnings
         </Button>
-        <Button className="w-full" size="sm" color="default" variant="flat" onClick={props.onClose}>
+        <Button className="w-full" size="sm" color="default" variant="flat" onClick={handleAbort}>
           Close Transaction
         </Button>
       </div>
@@ -153,9 +206,9 @@ export const GiverConfirmationModal = (props: {
   }
 
   return (
-    <Modal isOpen={props.isOpen ?? true} onClose={props.onClose}>
+    <Modal isOpen={props.isOpen ?? true}>
       <ModalContent>
-        <ModalHeader className="flex flex-col gap-1">Receiver Confirmation</ModalHeader>
+        <ModalHeader className="flex flex-col gap-1">Giver Confirmation</ModalHeader>
         <ModalBody>
           {renderStepSummary()}
           {renderActiveStepContent()}

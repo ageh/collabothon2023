@@ -1,23 +1,34 @@
-import { useEffect, useState } from "react";
+import { useContext, useMemo } from "react";
 import { QrReader } from "react-qr-reader";
-import { CheckOutlined } from "@ant-design/icons";
+import { CheckCircleOutlined, CheckOutlined } from "@ant-design/icons";
 import {
   Modal,
   ModalContent,
   ModalHeader,
   ModalBody,
   ModalFooter,
-  Button
+  Button,
+  Divider
 } from "@nextui-org/react";
+import { GlobalContext } from "../../GlobalContext";
+import rating_icon_handshake_yellow from "../../assets/rating_icon_handshake_yellow.svg";
+import rating_icon_handshake_grey from "../../assets/rating_icon_handshake_grey.svg";
+import rating_icon_handshake_half from "../../assets/rating_icon_handshake_half.svg";
+import profile from "../../assets/profile.png";
 
 export const ReceiverConfirmationModal = (props: {
   isOpen: boolean,
   onClose: () => void
 }) => {
-  const steps = [ 'Identification', 'Transfer', 'Confirm' ];
-  const [ activeStepIdx, setActiveStepIdx ] = useState(0);
+  const { activeRequest, handleAbort, handleUpdate } = useContext(GlobalContext);
 
-  useEffect(() => setActiveStepIdx(0), [props.isOpen]);
+  const steps = [ 'Identification', 'Transfer', 'Confirm' ];
+  
+  const activeStepIdx = useMemo(() => {
+    if(!activeRequest?.identificationConfirmed) return 0;
+    else if(!activeRequest?.transferConfirmed) return 1;
+    else return 2;
+  }, [activeRequest]);
 
   const renderStepSummary = () => {
     return (
@@ -46,18 +57,24 @@ export const ReceiverConfirmationModal = (props: {
   }
 
   const renderActiveStepContent = () => {
+    if(!props.isOpen) return;
     if(activeStepIdx === 0) return (
       <>
+        {/*
         <QrReader
-          constraints={{ facingMode: 'environment'}}
-          onResult={(result: any, error) => {
-            if(!!result) {
-              console.log(result?.text);
-              setActiveStepIdx(1);
-            }
-            if(!!error) console.error("Invalid QR reader result:", error);
-          }}
-        />
+            constraints={{ facingMode: 'environment'}}
+            onResult={(result: any, error) => {
+              if(activeStepIdx !== 0) return;
+              console.log(result, error);
+              if(!error && result !== undefined) {
+                console.log(result?.text);
+                handleUpdate({ identificationConfirmed: true })
+              }
+            }}
+          />
+        */}
+          
+        <Button onClick={() => handleUpdate({ identificationConfirmed: true })}>DEBUG</Button>
 
         <p className="text-sm text-gray-400 text-center"> 
           In order to make sure that you've actually met with the right person,
@@ -72,49 +89,123 @@ export const ReceiverConfirmationModal = (props: {
           <br/>
           Please confirm that you want to proceed and transfer the following amount to him/her:
         </p>
-        <h2 className="font-medium text-2xl cc--text-primary text-center">30 €</h2>
+        <h2 className="font-medium text-2xl cc--text-primary text-center">
+          {activeRequest?.amount}
+          <span className="text-sm">€ (+ {activeRequest?.commission} €)</span>
+        </h2>
       </>
     );
     if(activeStepIdx === 2) return (
-      <>
-        <p className="text-md text-center"> 
-          Your (digital) money has been transferred successfully to XYZ.
-        </p>
+      (!activeRequest?.handoverConfirmed) ? (
+        <>
+          <p className="text-md text-center"> 
+            Your (digital) money has been transferred successfully to XYZ.
+          </p>
+          <p className="text-md text-gray-800 text-center">
+            After XYZ handed the cash to you, please confirm that you've actually received the following amount:
+          </p>
+          <h2 className="font-medium text-2xl cc--text-primary text-center">
+            {activeRequest?.amount}
+            <span className="text-sm">€ (+ {activeRequest?.commission} €)</span>
+          </h2>
+        </>
+      ) : (
         <p className="text-md text-gray-800 text-center">
-          After XYZ handed the cash to you, please confirm that you've actually received the following amount:
+          <div className="w-full text-center mt-5">
+            <CheckCircleOutlined className="text-green-800 text-5xl" />
+            <h1 className="font-bold text-xl mt-4">Transfer Completed</h1>
+            <Divider className="my-5" />
+
+            <h2 className="font-bold my-3">Rate Robert</h2>
+
+            <div>
+              <img
+                className="inline"
+                src={profile}
+                width="50px"
+                height="100%"
+              ></img>
+
+              <div className="inline items-center space-x-1 mt-5 p-4">
+                <img
+                  src={rating_icon_handshake_yellow}
+                  className="inline w-10 h-8"
+                />
+                <img
+                  src={rating_icon_handshake_yellow}
+                  className="inline w-10 h-8"
+                />
+                <img
+                  src={rating_icon_handshake_yellow}
+                  className="inline w-10 h-8"
+                />
+                <img
+                  src={rating_icon_handshake_half}
+                  className="inline w-10 h-8"
+                />
+                <img
+                  src={rating_icon_handshake_grey}
+                  className="inline w-10 h-8"
+                />
+              </div>
+            </div>
+          </div>
         </p>
-        <h2 className="font-medium text-2xl cc--text-primary text-center">30 €</h2>
-      </>
+      )
+      
     );
   }
 
   const renderActiveStepActions = () => {
     if(activeStepIdx === 0) return (
-      <Button className="w-full" size="sm" color="danger" variant="flat" onClick={props.onClose}>
+      <Button className="w-full" size="sm" color="danger" variant="flat" onClick={handleAbort}>
         Abort Transaction
       </Button>
     );
     if(activeStepIdx === 1) return (
       <div>
-        <Button className="w-full mb-2 text-white" size="lg" color="success" variant="solid" onClick={() => setActiveStepIdx(2)}>
+        <Button
+          className="w-full mb-2 text-white"
+          size="lg"
+          color="success"
+          variant="solid"
+          onClick={() => handleUpdate({
+            transferConfirmed: true
+          })
+        }>
           <CheckOutlined />
           Transfer (Digital) Money
         </Button>
-        <Button className="w-full" size="sm" color="danger" variant="flat" onClick={() => setActiveStepIdx(0)}>
+        <Button className="w-full" size="sm" color="danger" variant="flat" onClick={handleAbort}>
           Abort Transaction
         </Button>
       </div>
     );
     if(activeStepIdx === 2) return (
-      <div>
-        <Button className="w-full mb-2 text-white" size="lg" color="success" variant="solid" onClick={props.onClose}>
-          <CheckOutlined />
-          I've received the cash
+      (!activeRequest?.handoverConfirmed) ? (
+        <div>
+          <Button
+            className="w-full mb-2 text-white"
+            size="lg"
+            color="success"
+            variant="solid"
+            onClick={() => handleUpdate({
+              handoverConfirmed: true
+            })}
+          >
+            <CheckOutlined />
+            I've received the cash
+          </Button>
+          <Button className="w-full" size="sm" color="danger" variant="flat" onClick={handleAbort}>
+            Abort Transaction
+          </Button>
+        </div>
+      ) : (
+        <Button className="w-full" size="md" color="default" variant="flat" onClick={handleAbort}>
+          Close Transaction
         </Button>
-        <Button className="w-full" size="sm" color="danger" variant="flat" onClick={() => setActiveStepIdx(1)}>
-          Abort Transaction
-        </Button>
-      </div>
+      )
+      
     );
   }
 

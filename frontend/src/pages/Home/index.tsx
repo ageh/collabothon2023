@@ -1,13 +1,36 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { GlobalContext } from "../../GlobalContext";
+import { createRequest } from "../../api";
 import { Button, Popover, PopoverContent, PopoverTrigger } from "@nextui-org/react";
 import commissionIconSrc from "../../assets/icons/commission.svg";
 import distanceIconSrc from "../../assets/icons/distance.svg";
 
 export const HomePage = () => {
+  const { setRequestRole, setActiveRequest } = useContext(GlobalContext);
+
   const [ amount, setAmount ] = useState(30);
   const [ commission, setCommission ] = useState(2);
   const [ distance, setDistance ] = useState(200);
+
   const [ submitLoading, setSubmitLoading ] = useState(false);
+
+  const handleSubmit = () => {
+    setSubmitLoading(true);
+    // FIXME: Maybe delete all pending requests first
+    const request = {
+      id: Math.random().toString(16).slice(2),
+      amount: amount,
+      commission: commission,
+      distance: distance
+    };
+    createRequest(request)
+      .then(() => {
+        setRequestRole('receiver');
+        setActiveRequest(request);
+      })
+      .catch((err) => console.error("Couldn't submit request", err))
+      .finally(() => setSubmitLoading(false));
+  }
 
   return (
     <div className="cc--page-home container mx-auto px-6 pt-4 text-center">
@@ -113,7 +136,7 @@ export const HomePage = () => {
         size="lg"
         radius="full"
         isLoading={submitLoading}
-        onClick={() => setSubmitLoading(prev => !prev)}
+        onClick={handleSubmit}
       >
         Request Cash
       </Button>
