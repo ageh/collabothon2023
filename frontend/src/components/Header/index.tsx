@@ -9,14 +9,14 @@ import {
   DropdownMenu,
   DropdownItem
 } from "@nextui-org/react";
-import logoSrc from "../../assets/logo.svg";
+import logoSrc from "../../assets/handshake.svg";
 
 export const Header = () => {
   return (
     <Navbar>
       <NavbarContent>
         <NavbarBrand>
-          <img src={logoSrc} className="block w-8 h-8 mr-2" />
+          <img src={logoSrc} className="block w-12 h-12 mr-2" />
           <p className="font-bold text-inherit">CashCrowd</p>
         </NavbarBrand>
       </NavbarContent>
