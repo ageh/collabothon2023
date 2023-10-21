@@ -16,7 +16,7 @@ export const RequestPreviewModal = (props: {
   onClose: () => void
 }) => {
   const navigate = useNavigate();
-  const { activeRequest, handleUpdate } = useContext(GlobalContext);
+  const { activeRequest, handleUpdate, handleAbort, setRequestRole } = useContext(GlobalContext);
 
   return (
     <Modal isOpen={props.isOpen ?? true} onClose={props.onClose}>
@@ -35,7 +35,10 @@ export const RequestPreviewModal = (props: {
             variant="flat"
             onClick={() => {
               handleUpdate({ accepted: true })
-                .then(() => navigate('/meetup'))
+                .then(() => {
+                  setRequestRole('giver');
+                  navigate('/meetup');
+                })
             }}
           >
             Accept Request
@@ -45,7 +48,7 @@ export const RequestPreviewModal = (props: {
             size="lg"
             color="danger"
             variant="flat"
-            onClick={() => alert("Request denied")}
+            onClick={handleAbort}
           >
             Decline Request
           </Button>

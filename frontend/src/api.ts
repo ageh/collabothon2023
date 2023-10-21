@@ -5,6 +5,7 @@ export interface APIRequest {
   distance: number;
 
   accepted?: boolean;
+  transferActive?: boolean;
   identificationConfirmed?: boolean;
   transferConfirmed?: boolean;
   handoverConfirmed?: boolean;

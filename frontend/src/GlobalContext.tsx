@@ -4,6 +4,7 @@ import { ReceiverConfirmationModal } from "./components/ReceiverConfirmationModa
 import { GiverConfirmationModal } from "./components/GiverConfirmationModal";
 import { RequestWaitingModal } from "./components/RequestWaitingModal";
 import { RequestPreviewModal } from "./components/RequestPreviewModal";
+import { useNavigate } from "react-router-dom";
 
 export const GlobalContext = createContext<any>({
   requestRole: null,
@@ -17,6 +18,8 @@ export const GlobalContext = createContext<any>({
 });
 
 export const GlobalContextProvider = (props: PropsWithChildren) => {
+  const navigate = useNavigate();
+
   const [ modalReceiverConfirmationOpen, modalReceiverConfirmationSetOpen ] = useState(false);
   const [ modalGiverConfirmationOpen, modalGiverConfirmationSetOpen ] = useState(false);
 
@@ -30,10 +33,7 @@ export const GlobalContextProvider = (props: PropsWithChildren) => {
       ...update
     };
     return updateRequest(updatedRequest)
-      .then(() => {
-        setRequestRole(null);
-        setActiveRequest(updatedRequest);
-      })
+      .then(() => setActiveRequest(updatedRequest))
       .catch((err) => console.error("Couldn't update request", err, updatedRequest));
   }
 
@@ -52,12 +52,17 @@ export const GlobalContextProvider = (props: PropsWithChildren) => {
       getRequest()
         .then((req) => {
           if(req?.id) setActiveRequest(req);
-          else setActiveRequest(null);
+          else {
+            setActiveRequest(null);
+            setRequestRole(null);
+          }
+
+          if(requestRole === 'receiver' && req?.accepted) navigate('/meetup');
         })
         .catch((err) => console.error("Couldn't perform recurrent request fetch", err));
     }, 2000);
     return () => clearInterval(interval);
-  }, []);
+  }, [requestRole]);
 
   return (
     <GlobalContext.Provider value={{
@@ -72,11 +77,11 @@ export const GlobalContextProvider = (props: PropsWithChildren) => {
     }}>
       {props.children}
       <ReceiverConfirmationModal
-        isOpen={modalReceiverConfirmationOpen}
+        isOpen={requestRole === 'receiver' && (activeRequest?.accepted ?? false) && (activeRequest?.transferActive ?? false)}
         onClose={() => modalReceiverConfirmationSetOpen(false)}
       />
       <GiverConfirmationModal
-        isOpen={modalGiverConfirmationOpen}
+        isOpen={requestRole === 'giver' && (activeRequest?.accepted ?? false) && (activeRequest?.transferActive ?? false)}
         onClose={() => modalGiverConfirmationSetOpen(false)}
       />
       <RequestWaitingModal

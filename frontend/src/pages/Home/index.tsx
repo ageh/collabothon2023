@@ -27,7 +27,6 @@ export const HomePage = () => {
       .then(() => {
         setRequestRole('receiver');
         setActiveRequest(request);
-        // navigate("/meetup");
       })
       .catch((err) => console.error("Couldn't submit request", err))
       .finally(() => setSubmitLoading(false));

@@ -1,15 +1,20 @@
 import { useContext, useMemo } from "react";
 import { QrReader } from "react-qr-reader";
-import { CheckOutlined } from "@ant-design/icons";
+import { CheckCircleOutlined, CheckOutlined } from "@ant-design/icons";
 import {
   Modal,
   ModalContent,
   ModalHeader,
   ModalBody,
   ModalFooter,
-  Button
+  Button,
+  Divider
 } from "@nextui-org/react";
 import { GlobalContext } from "../../GlobalContext";
+import rating_icon_handshake_yellow from "../../assets/rating_icon_handshake_yellow.svg";
+import rating_icon_handshake_grey from "../../assets/rating_icon_handshake_grey.svg";
+import rating_icon_handshake_half from "../../assets/rating_icon_handshake_half.svg";
+import profile from "../../assets/profile.png";
 
 export const ReceiverConfirmationModal = (props: {
   isOpen: boolean,
@@ -91,18 +96,63 @@ export const ReceiverConfirmationModal = (props: {
       </>
     );
     if(activeStepIdx === 2) return (
-      <>
-        <p className="text-md text-center"> 
-          Your (digital) money has been transferred successfully to XYZ.
-        </p>
+      (!activeRequest?.handoverConfirmed) ? (
+        <>
+          <p className="text-md text-center"> 
+            Your (digital) money has been transferred successfully to XYZ.
+          </p>
+          <p className="text-md text-gray-800 text-center">
+            After XYZ handed the cash to you, please confirm that you've actually received the following amount:
+          </p>
+          <h2 className="font-medium text-2xl cc--text-primary text-center">
+            {activeRequest?.amount}
+            <span className="text-sm">€ (+ {activeRequest?.commission} €)</span>
+          </h2>
+        </>
+      ) : (
         <p className="text-md text-gray-800 text-center">
-          After XYZ handed the cash to you, please confirm that you've actually received the following amount:
+          <div className="w-full text-center mt-5">
+            <CheckCircleOutlined className="text-green-800 text-5xl" />
+            <h1 className="font-bold text-xl mt-4">Transfer Completed</h1>
+            <Divider className="my-5" />
+
+            <h2 className="font-bold my-3">Rate Robert</h2>
+
+            <div>
+              <img
+                className="inline"
+                src={profile}
+                width="50px"
+                height="100%"
+              ></img>
+
+              <div className="inline items-center space-x-1 mt-5 p-4">
+                <img
+                  src={rating_icon_handshake_yellow}
+                  className="inline w-10 h-8"
+                />
+                <img
+                  src={rating_icon_handshake_yellow}
+                  className="inline w-10 h-8"
+                />
+                <img
+                  src={rating_icon_handshake_yellow}
+                  className="inline w-10 h-8"
+                />
+                <img
+                  src={rating_icon_handshake_half}
+                  className="inline w-10 h-8"
+                />
+                <img
+                  src={rating_icon_handshake_grey}
+                  className="inline w-10 h-8"
+                />
+              </div>
+            </div>
+          </div>
         </p>
-        <h2 className="font-medium text-2xl cc--text-primary text-center">
-          {activeRequest?.amount}
-          <span className="text-sm">€ (+ {activeRequest?.commission} €)</span>
-        </h2>
-      </>
+      )
+      
     );
   }
 
@@ -132,23 +182,30 @@ export const ReceiverConfirmationModal = (props: {
       </div>
     );
     if(activeStepIdx === 2) return (
-      <div>
+      (!activeRequest?.handoverConfirmed) ? (
+        <div>
           <Button
-          className="w-full mb-2 text-white"
-          size="lg"
-          color="success"
-          variant="solid"
-          onClick={() => handleUpdate({
-            handoverConfirmed: true
-          })}
-        >
-          <CheckOutlined />
-          I've received the cash
+            className="w-full mb-2 text-white"
+            size="lg"
+            color="success"
+            variant="solid"
+            onClick={() => handleUpdate({
+              handoverConfirmed: true
+            })}
+          >
+            <CheckOutlined />
+            I've received the cash
+          </Button>
+          <Button className="w-full" size="sm" color="danger" variant="flat" onClick={handleAbort}>
+            Abort Transaction
+          </Button>
+        </div>
+      ) : (
+        <Button className="w-full" size="md" color="default" variant="flat" onClick={handleAbort}>
+          Close Transaction
         </Button>
-        <Button className="w-full" size="sm" color="danger" variant="flat" onClick={handleAbort}>
-          Abort Transaction
-        </Button>
-      </div>
+      )
+      
     );
   }
 
