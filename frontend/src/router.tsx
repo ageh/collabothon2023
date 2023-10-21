@@ -4,10 +4,11 @@ import { ErrorPage } from "./pages/Error";
 import { HomePage } from "./pages/Home";
 import { SettingsPage } from "./pages/Settings";
 import { QRPage } from "./pages/QR";
+import { EarningsPage } from "./pages/Earnings";
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: "/",
     element: <AppRoot />,
     errorElement: <ErrorPage />,
     children: [
@@ -16,14 +17,18 @@ const router = createBrowserRouter([
         element: <HomePage />,
       },
       {
-        path: '/settings',
+        path: "/settings",
         element: <SettingsPage />,
       },
       {
         path: '/qr-page',
         element: <QRPage />,
-      }
-    ]
+      },
+      {
+        path: "/earnings",
+        element: <EarningsPage />,
+      },
+    ],
   },
 ]);
 
