@@ -3,6 +3,7 @@ import { AppRoot } from "./AppRoot";
 import { ErrorPage } from "./pages/Error";
 import { HomePage } from "./pages/Home";
 import { SettingsPage } from "./pages/Settings";
+import { MeetupPage } from "./pages/Meetup";
 
 const router = createBrowserRouter([
   {
