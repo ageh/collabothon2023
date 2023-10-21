@@ -15,14 +15,17 @@ import { GlobalContext } from "../../GlobalContext";
 import logoSrc from "../../assets/handshake.svg";
 
 export const Header = () => {  
-  const { modalReceiverConfirmationSetOpen } = useContext(GlobalContext);
+  const {
+    modalReceiverConfirmationSetOpen,
+    modalGiverConfirmationSetOpen
+  } = useContext(GlobalContext);
 
   return (
     <Navbar className="bg-transparent">
       <NavbarContent>
         <NavbarBrand as={Link} to="/">
           <img src={logoSrc} className="block w-12 h-12 mr-2" />
-          <p className="font-bold text-inherit">CashCrowd Test</p>
+          <p className="font-bold text-inherit">CashCrowd</p>
         </NavbarBrand>
       </NavbarContent>
 
@@ -51,6 +54,9 @@ export const Header = () => {
             {/* @ts-ignore */}
             <DropdownItem key="settings" as={Link} to="/settings">
               Settings
+            </DropdownItem>
+            <DropdownItem key="req-flow-giver" onClick={() => modalGiverConfirmationSetOpen(true)}>
+              Giver Flow
             </DropdownItem>
             <DropdownItem key="req-flow-receiver" onClick={() => modalReceiverConfirmationSetOpen(true)}>
               Receiver Flow
