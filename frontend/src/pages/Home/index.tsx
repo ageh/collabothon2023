@@ -2,8 +2,8 @@ import { useContext, useState } from "react";
 import { GlobalContext } from "../../GlobalContext";
 import { createRequest } from "../../api";
 import { Button, Popover, PopoverContent, PopoverTrigger } from "@nextui-org/react";
-import commissionIconSrc from "../../assets/icons/commission.svg";
-import distanceIconSrc from "../../assets/icons/distance.svg";
+import commissionIconSrc from "../../assets/commission.svg";
+import distanceIconSrc from "../../assets/distance.svg";
 
 export const HomePage = () => {
   const { setRequestRole, setActiveRequest } = useContext(GlobalContext);

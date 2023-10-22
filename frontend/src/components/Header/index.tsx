@@ -10,6 +10,7 @@ import {
   DropdownItem
 } from "@nextui-org/react";
 import logoSrc from "../../assets/handshake.svg";
+import robert from "../../assets/robert.jpg";
 
 export const Header = () => {
   return (
@@ -29,9 +30,9 @@ export const Header = () => {
               as="button"
               className="ring-secondary transition-transform"
               color="primary"
-              name="John Doe"
+              name="Robert Doe"
               size="sm"
-              src="https://i1.sndcdn.com/avatars-000321234849-ytct1h-t500x500.jpg"
+              src={robert}
             />
           </DropdownTrigger>
           <DropdownMenu aria-label="Profile Actions" variant="flat">

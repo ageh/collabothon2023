@@ -10,11 +10,12 @@ import {
 } from "@nextui-org/react";
 import { GlobalContext } from "../../../GlobalContext";
 import { useNavigate } from "react-router-dom";
-import commissionIconSrc from "../../../assets/icons/commission.svg";
-import distanceIconSrc from "../../../assets/icons/distance.svg";
+import commissionIconSrc from "../../../assets/commission.svg";
+import distanceIconSrc from "../../../assets/distance.svg";
 import rating_icon_handshake_yellow from "../../../assets/rating_icon_handshake_yellow.svg";
 import rating_icon_handshake_grey from "../../../assets/rating_icon_handshake_grey.svg";
 import rating_icon_handshake_half from "../../../assets/rating_icon_handshake_half.svg";
+import robert from "../../../assets/robert.jpg";
 
 export const RequestPreviewModal = (props: {
   isOpen: boolean,
@@ -34,9 +35,9 @@ export const RequestPreviewModal = (props: {
               as="button"
               className="ring-secondary transition-transform mr-2"
               color="primary"
-              name="John Doe"
+              name="Robert Doe"
               size="sm"
-              src="https://i1.sndcdn.com/avatars-000321234849-ytct1h-t500x500.jpg"
+              src={robert}
             />
             <div className="user-info ml-2">
               <h2 className="font-medium text-xl cc--text-primary text-center">Robert</h2>
