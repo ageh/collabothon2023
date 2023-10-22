@@ -11,7 +11,7 @@ export interface APIRequest {
   handoverConfirmed?: boolean;
 }
 
-const baseAPIUrl = 'http://localhost:8585'
+const baseAPIUrl = import.meta.env.VITE_API_BASE ?? 'http://localhost:8585';
 
 export const createRequest = (req: APIRequest) => {
   return fetch(baseAPIUrl + '/request', {
