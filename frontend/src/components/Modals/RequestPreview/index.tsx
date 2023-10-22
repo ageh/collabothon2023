@@ -5,8 +5,7 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
-  Button,
-  Spinner
+  Button
 } from "@nextui-org/react";
 import { GlobalContext } from "../../../GlobalContext";
 import { useNavigate } from "react-router-dom";

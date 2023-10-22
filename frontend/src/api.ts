@@ -35,6 +35,6 @@ export const updateRequest = (req: APIRequest) => {
   })
 }
 
-export const deleteRequest = (req: APIRequest) => {
+export const deleteRequest = () => {
   return fetch(baseAPIUrl + '/request', { method: 'DELETE' });
 }

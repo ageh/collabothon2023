@@ -1,5 +1,5 @@
 import { useContext, useMemo } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import QRCode from "qrcode.react";
 import {
   Modal,

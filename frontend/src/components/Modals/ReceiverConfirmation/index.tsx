@@ -1,5 +1,5 @@
 import { useContext, useMemo } from "react";
-import { QrReader } from "react-qr-reader";
+// import { QrReader } from "react-qr-reader";
 import { CheckCircleOutlined, CheckOutlined } from "@ant-design/icons";
 import {
   Modal,
