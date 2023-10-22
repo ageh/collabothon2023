@@ -8,7 +8,7 @@ import {
   Button,
   Spinner
 } from "@nextui-org/react";
-import { GlobalContext } from "../../GlobalContext";
+import { GlobalContext } from "../../../GlobalContext";
 
 export const RequestWaitingModal = (props: {
   isOpen: boolean

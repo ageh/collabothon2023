@@ -8,7 +8,7 @@ import {
   Button,
   Spinner
 } from "@nextui-org/react";
-import { GlobalContext } from "../../GlobalContext";
+import { GlobalContext } from "../../../GlobalContext";
 import { useNavigate } from "react-router-dom";
 
 export const RequestPreviewModal = (props: {

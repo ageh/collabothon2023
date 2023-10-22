@@ -1,9 +1,9 @@
 import { PropsWithChildren, createContext, useEffect, useState } from "react";
 import { deleteRequest, getRequest, APIRequest, updateRequest } from "./api";
-import { ReceiverConfirmationModal } from "./components/ReceiverConfirmationModal";
-import { GiverConfirmationModal } from "./components/GiverConfirmationModal";
-import { RequestWaitingModal } from "./components/RequestWaitingModal";
-import { RequestPreviewModal } from "./components/RequestPreviewModal";
+import { ReceiverConfirmationModal } from "./components/Modals/ReceiverConfirmation";
+import { GiverConfirmationModal } from "./components/Modals/GiverConfirmation";
+import { RequestWaitingModal } from "./components/Modals/RequestWaiting";
+import { RequestPreviewModal } from "./components/Modals/RequestPreview";
 import { useNavigate } from "react-router-dom";
 
 export const GlobalContext = createContext<any>({
