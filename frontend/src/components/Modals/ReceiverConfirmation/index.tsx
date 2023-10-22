@@ -62,12 +62,11 @@ export const ReceiverConfirmationModal = (props: {
       <>  
         <QrScanner
           onDecode={() => handleUpdate({ identificationConfirmed: true })}
-          onError={(err) => console.log(err)}
+          onError={(err: any) => console.log(err)}
         />
 
         <p className="text-sm text-gray-400 text-center"> 
-          In order to make sure that you've actually met with the right person,
-          please first scan the QR code thats shown on the giver's phone.
+          To make sure that you really met Greta, scan the QR code on her phone.
         </p>
       </>
     );
@@ -76,7 +75,7 @@ export const ReceiverConfirmationModal = (props: {
         <p className="text-md text-gray-800 text-center"> 
           Great, seems like you've met Greta.
           <br/>
-          Please confirm that you want to proceed and transfer the following amount to him/her:
+          Please confirm that you want to transfer the following amount to her:
         </p>
         <h2 className="font-medium text-2xl cc--text-primary text-center">
           {activeRequest?.amount}€
@@ -88,10 +87,10 @@ export const ReceiverConfirmationModal = (props: {
       (!activeRequest?.handoverConfirmed) ? (
         <>
           <p className="text-md text-center"> 
-            Your (digital) money has been transferred successfully to Greta.
+            Your (digital) money has been transferred successfully.
           </p>
           <p className="text-md text-gray-800 text-center">
-            After Greta handed the cash to you, please confirm that you've actually received the following amount:
+            Please confirm that you've received the following amount in cash from Greta:
           </p>
           <h2 className="font-medium text-2xl cc--text-primary text-center">
             {activeRequest?.amount}€

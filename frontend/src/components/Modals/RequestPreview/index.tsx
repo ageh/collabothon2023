@@ -27,7 +27,7 @@ export const RequestPreviewModal = (props: {
   return (
     <Modal isOpen={props.isOpen ?? true} onClose={props.onClose}>
       <ModalContent>
-        <ModalHeader className="flex flex-col gap-1">New Cash Request</ModalHeader>
+        <ModalHeader className="flex flex-col gap-1 text-center">New Cash Request</ModalHeader>
         <ModalBody>
           <div className="flex items-center mx-auto">
             <Avatar
@@ -57,11 +57,11 @@ export const RequestPreviewModal = (props: {
               className="inline w-8 h-8"
             />
             <img
-              src={rating_icon_handshake_half}
+              src={rating_icon_handshake_yellow}
               className="inline w-8 h-8"
             />
             <img
-              src={rating_icon_handshake_grey}
+              src={rating_icon_handshake_half}
               className="inline w-8 h-8"
             />
           </div>

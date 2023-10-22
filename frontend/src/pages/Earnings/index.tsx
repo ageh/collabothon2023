@@ -46,13 +46,13 @@ export const EarningsPage = () => {
               <div className="font-bold text-xs text-green-800 mb-1">
                 + {earning} % ({(totalEarning / 100) * earning} €)
               </div>
-              <Button className="" radius="full" color="success">
+              <Button className="" radius="full" color="secondary">
                 Deposit
               </Button>
               <Button
                 className=" ml-2"
                 radius="full"
-                color="danger"
+                color="primary"
                 as={Link}
                 to="/donation"
               >
