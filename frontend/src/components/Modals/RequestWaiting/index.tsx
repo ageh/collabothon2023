@@ -22,7 +22,7 @@ export const RequestWaitingModal = (props: {
         <ModalBody>
           <Spinner className="block mx-auto" />
           <p className="text-md text-gray-800 text-center">
-            Please wait until we match you with somebody having the wanted amount on cash on hand...
+            Please wait until we find a match for you ...
           </p>
         </ModalBody>
         <ModalFooter>

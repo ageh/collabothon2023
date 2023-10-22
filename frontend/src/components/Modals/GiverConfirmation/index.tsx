@@ -74,8 +74,7 @@ export const GiverConfirmationModal = (props: {
           />
         </div>
         <p className="text-sm text-gray-400 text-center">
-          In order to make sure that you've actually met with the right person,
-          please let the receiver scan the QR code thats shown on your phone.
+          To make sure that you really met Robert, let him scan the QR code below.
         </p>
       </>
     );
@@ -90,7 +89,7 @@ export const GiverConfirmationModal = (props: {
           <span className="text-sm ml-2 text-gray-500 align-middle">(+ {activeRequest?.commission}€)</span>
         </h2>
         <p className="text-sm mt-2 text-gray-400 text-center">
-          Please do not handover any cash yet, as you haven't received any money for the time being!
+          Please do not handover any cash yet.
         </p>
       </>
     );
@@ -106,7 +105,7 @@ export const GiverConfirmationModal = (props: {
             <span className="text-sm ml-2 text-gray-500 align-middle">(+ {activeRequest?.commission}€)</span>
           </h2>
           <p className="text-sm mt-2 text-gray-400 text-center">
-            The receiver has to confirm that he/she actually received the cash from you.
+            Robert has to confirm that he received the cash from you.
           </p>
         </>
       ) : (
@@ -140,11 +139,11 @@ export const GiverConfirmationModal = (props: {
                   className="inline w-10 h-8"
                 />
                 <img
-                  src={rating_icon_handshake_half}
+                  src={rating_icon_handshake_yellow}
                   className="inline w-10 h-8"
                 />
                 <img
-                  src={rating_icon_handshake_grey}
+                  src={rating_icon_handshake_yellow}
                   className="inline w-10 h-8"
                 />
               </div>
