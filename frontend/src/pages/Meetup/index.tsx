@@ -24,10 +24,10 @@ export const MeetupPage = () => {
       <div className="bg-white shadow-md rounded-lg w-full">
           <div id="chatbox" className="p-4 h-60 overflow-y-auto">
             <div className="mb-2 text-right">
-              <p className="own-bubble rounded-lg py-2 px-4 inline-block">Hello John, I can give you cash ... Let's meet at neosfer rooftop!</p>
+              <p className="own-bubble rounded-lg py-2 px-4 inline-block">Hello Robert, I can give you cash ... Let's meet at neosfer rooftop!</p>
             </div>
             <div className="mb-2">
-              <p className="other-bubble rounded-lg py-2 px-4 inline-block">Hi Alice, I'll be there in 3 min! Thanks a lot</p>
+              <p className="other-bubble rounded-lg py-2 px-4 inline-block">Hi Greta, I'll be there in 3 min! Thanks a lot</p>
             </div>
             <div className="mb-2 text-right">
               <p className="own-bubble rounded-lg py-2 px-4 inline-block">Great!</p>
