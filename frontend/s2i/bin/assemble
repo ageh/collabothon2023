@@ -7,3 +7,5 @@ echo "---> Installing application source"
 cd /tmp/src/
 yarn install
 yarn build
+
+yarn global add serve
