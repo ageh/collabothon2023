@@ -47,7 +47,7 @@ export const EarningsPage = () => {
                 + {earning} % ({(totalEarning / 100) * earning} €)
               </div>
               <Button className="" radius="full" color="secondary">
-                Deposit
+                Withdraw
               </Button>
               <Button
                 className=" ml-2"
