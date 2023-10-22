@@ -1,5 +1,3 @@
-
-import { useContext } from "react";
 import { Link } from "react-router-dom";
 import {
   Navbar,
@@ -11,15 +9,9 @@ import {
   DropdownMenu,
   DropdownItem
 } from "@nextui-org/react";
-import { GlobalContext } from "../../GlobalContext";
 import logoSrc from "../../assets/handshake.svg";
 
-export const Header = () => {  
-  const {
-    modalReceiverConfirmationSetOpen,
-    modalGiverConfirmationSetOpen
-  } = useContext(GlobalContext);
-
+export const Header = () => {
   return (
     <Navbar className="bg-transparent">
       <NavbarContent>
@@ -54,12 +46,6 @@ export const Header = () => {
             {/* @ts-ignore */}
             <DropdownItem key="settings" as={Link} to="/settings">
               Settings
-            </DropdownItem>
-            <DropdownItem key="req-flow-giver" onClick={() => modalGiverConfirmationSetOpen(true)}>
-              Giver Flow
-            </DropdownItem>
-            <DropdownItem key="req-flow-receiver" onClick={() => modalReceiverConfirmationSetOpen(true)}>
-              Receiver Flow
             </DropdownItem>
             <DropdownItem key="logout" color="danger">
               Log Out
