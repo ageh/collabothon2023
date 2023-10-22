@@ -13,7 +13,6 @@ import { useNavigate } from "react-router-dom";
 import commissionIconSrc from "../../../assets/commission.svg";
 import distanceIconSrc from "../../../assets/distance.svg";
 import rating_icon_handshake_yellow from "../../../assets/rating_icon_handshake_yellow.svg";
-import rating_icon_handshake_grey from "../../../assets/rating_icon_handshake_grey.svg";
 import rating_icon_handshake_half from "../../../assets/rating_icon_handshake_half.svg";
 import robert from "../../../assets/robert.jpg";
 

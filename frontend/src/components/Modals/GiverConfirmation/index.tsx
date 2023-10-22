@@ -14,8 +14,6 @@ import {
 import { GlobalContext } from "../../../GlobalContext";
 import { CheckCircleOutlined } from "@ant-design/icons";
 import rating_icon_handshake_yellow from "../../../assets/rating_icon_handshake_yellow.svg";
-import rating_icon_handshake_grey from "../../../assets/rating_icon_handshake_grey.svg";
-import rating_icon_handshake_half from "../../../assets/rating_icon_handshake_half.svg";
 import profile from "../../../assets/profile.png";
 
 export const GiverConfirmationModal = (props: {
