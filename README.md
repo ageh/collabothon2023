@@ -4,7 +4,8 @@ This repository contains our submission for the FutureFintech challenge of Colla
 
 ## Demo
 
-[Deployed on Azure](https://brave-desert-0451bd303.4.azurestaticapps.net/)
+[Deployed on OpenShift](https://cashcrowd.apps.cluster-rtxk9.gcp.redhatworkshops.io/)
+~~[Deployed on Azure](https://brave-desert-0451bd303.4.azurestaticapps.net/)~~
 
 ## Description
 
