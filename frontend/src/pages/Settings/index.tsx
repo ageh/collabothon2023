@@ -33,11 +33,11 @@ export const SettingsPage = () => {
           </div>
           <div>
           <RadioGroup className="pt-4" label="Users with ratings">
-            <Radio value="1star" className="pt-2">1 star and higher</Radio>
-            <Radio value="2star" className="pt-2">2 star and higher</Radio>
-            <Radio value="3star" className="pt-2">3 star and higher</Radio>
-            <Radio value="4star" className="pt-2">4 star and higher</Radio>
-            <Radio value="5star" className="pt-2">5 star</Radio>
+            <Radio value="1star" className="pt-2">1 trust point and higher</Radio>
+            <Radio value="2star" className="pt-2">2 trust points and higher</Radio>
+            <Radio value="3star" className="pt-2">3 trust points and higher</Radio>
+            <Radio value="4star" className="pt-2">4 trust points and higher</Radio>
+            <Radio value="5star" className="pt-2">5 trust points</Radio>
           </RadioGroup>
           </div>
         </AccordionItem>
