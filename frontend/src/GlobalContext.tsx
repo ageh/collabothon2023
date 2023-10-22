@@ -39,7 +39,7 @@ export const GlobalContextProvider = (props: PropsWithChildren) => {
 
   const handleAbort = () => {
     if(!activeRequest) return;
-    return deleteRequest(activeRequest)
+    return deleteRequest()
       .then(() => {
         setRequestRole(null);
         setActiveRequest(null);

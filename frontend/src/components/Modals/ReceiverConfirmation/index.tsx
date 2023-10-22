@@ -15,11 +15,13 @@ import rating_icon_handshake_yellow from "../../../assets/rating_icon_handshake_
 import rating_icon_handshake_grey from "../../../assets/rating_icon_handshake_grey.svg";
 import rating_icon_handshake_half from "../../../assets/rating_icon_handshake_half.svg";
 import profile from "../../../assets/profile.png";
+import { useNavigate } from "react-router-dom";
 
 export const ReceiverConfirmationModal = (props: {
   isOpen: boolean,
   onClose: () => void
 }) => {
+  const navigate = useNavigate();
   const { activeRequest, handleAbort, handleUpdate } = useContext(GlobalContext);
 
   const steps = [ 'Identification', 'Transfer', 'Confirm' ];
@@ -90,8 +92,8 @@ export const ReceiverConfirmationModal = (props: {
           Please confirm that you want to proceed and transfer the following amount to him/her:
         </p>
         <h2 className="font-medium text-2xl cc--text-primary text-center">
-          {activeRequest?.amount}
-          <span className="text-sm">€ (+ {activeRequest?.commission} €)</span>
+          {activeRequest?.amount}€
+          <span className="text-sm ml-2 text-gray-500 align-middle">(+ {activeRequest?.commission} €)</span>
         </h2>
       </>
     );
@@ -105,8 +107,7 @@ export const ReceiverConfirmationModal = (props: {
             After XYZ handed the cash to you, please confirm that you've actually received the following amount:
           </p>
           <h2 className="font-medium text-2xl cc--text-primary text-center">
-            {activeRequest?.amount}
-            <span className="text-sm">€ (+ {activeRequest?.commission} €)</span>
+            {activeRequest?.amount}€
           </h2>
         </>
       ) : (
@@ -201,7 +202,11 @@ export const ReceiverConfirmationModal = (props: {
           </Button>
         </div>
       ) : (
-        <Button className="w-full" size="md" color="default" variant="flat" onClick={handleAbort}>
+        <Button className="w-full" size="md" color="default" variant="flat" 
+        onClick={() => {
+          navigate('/');
+          handleAbort();
+        }}>
           Close Transaction
         </Button>
       )

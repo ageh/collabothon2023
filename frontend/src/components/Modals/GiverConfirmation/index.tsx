@@ -86,8 +86,8 @@ export const GiverConfirmationModal = (props: {
           Please wait until XYZ has transferred the (digital) money:
         </p>
         <h2 className="font-medium text-2xl cc--text-primary text-center">
-          {activeRequest?.amount}
-          <span className="text-sm">€ (+ {activeRequest?.commission} €)</span>
+          {activeRequest?.amount}€
+          <span className="text-sm ml-2 text-gray-500 align-middle">(+ {activeRequest?.commission}€)</span>
         </h2>
         <p className="text-sm mt-2 text-gray-400 text-center">
           Please do not handover any cash yet, as you haven't received any money for the time being!
@@ -102,8 +102,8 @@ export const GiverConfirmationModal = (props: {
             XYZ has transferred the (digital) money, please handover the following amount in cash:
           </p>
           <h2 className="font-medium text-2xl cc--text-primary text-center">
-            {activeRequest?.amount}
-            <span className="text-sm">€ (+ {activeRequest?.commission} €)</span>
+            {activeRequest?.amount}€
+            <span className="text-sm ml-2 text-gray-500 align-middle">(+ {activeRequest?.commission}€)</span>
           </h2>
           <p className="text-sm mt-2 text-gray-400 text-center">
             The receiver has to confirm that he/she actually received the cash from you.
@@ -198,7 +198,16 @@ export const GiverConfirmationModal = (props: {
         >
           Go to Earnings
         </Button>
-        <Button className="w-full" size="sm" color="default" variant="flat" onClick={handleAbort}>
+        <Button
+          className="w-full"
+          size="sm"
+          color="default"
+          variant="flat"
+          onClick={() => {
+            navigate('/');
+            handleAbort();
+          }}
+        >
           Close Transaction
         </Button>
       </div>
