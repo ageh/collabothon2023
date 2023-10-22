@@ -1,5 +1,5 @@
 import { useContext, useMemo } from "react";
-// import { QrReader } from "react-qr-reader";
+import { QrScanner } from '@yudiel/react-qr-scanner';
 import { CheckCircleOutlined, CheckOutlined } from "@ant-design/icons";
 import {
   Modal,
@@ -59,22 +59,11 @@ export const ReceiverConfirmationModal = (props: {
   const renderActiveStepContent = () => {
     if(!props.isOpen) return;
     if(activeStepIdx === 0) return (
-      <>
-        {/*
-        <QrReader
-            constraints={{ facingMode: 'environment'}}
-            onResult={(result: any, error) => {
-              if(activeStepIdx !== 0) return;
-              console.log(result, error);
-              if(!error && result !== undefined) {
-                console.log(result?.text);
-                handleUpdate({ identificationConfirmed: true })
-              }
-            }}
-          />
-        */}
-          
-        <Button onClick={() => handleUpdate({ identificationConfirmed: true })}>DEBUG</Button>
+      <>  
+        <QrScanner
+          onDecode={() => handleUpdate({ identificationConfirmed: true })}
+          onError={(err) => console.log(err)}
+        />
 
         <p className="text-sm text-gray-400 text-center"> 
           In order to make sure that you've actually met with the right person,
