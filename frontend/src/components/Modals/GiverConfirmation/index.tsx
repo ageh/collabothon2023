@@ -166,20 +166,20 @@ export const GiverConfirmationModal = (props: {
 
   const renderActiveStepActions = () => {
     if(activeStepIdx === 0) return (
-      <Button className="w-full" size="sm" color="danger" variant="flat" onClick={handleAbort}>
+      <Button className="w-full" size="sm" color="danger" variant="flat" onClick={() => handleAbort(true)}>
         Abort Transaction
       </Button>
     );
     if(activeStepIdx === 1) return (
       <div className="w-full">
-        <Button className="w-full" size="sm" color="danger" variant="flat" onClick={handleAbort}>
+        <Button className="w-full" size="sm" color="danger" variant="flat" onClick={() => handleAbort(true)}>
           Abort Transaction
         </Button>
       </div>
     );
     if(activeStepIdx === 2 && !activeRequest?.handoverConfirmed) return (
       <div className="w-full">
-        <Button className="w-full" size="sm" color="danger" variant="flat" onClick={handleAbort}>
+        <Button className="w-full" size="sm" color="danger" variant="flat" onClick={() => handleAbort(true)}>
           Abort Transaction
         </Button>
       </div>
@@ -192,7 +192,7 @@ export const GiverConfirmationModal = (props: {
           color="success"
           variant="solid"
           onClick={() => {
-            handleAbort();
+            handleAbort(true)
             navigate('/earnings');
           }}
         >
@@ -203,10 +203,7 @@ export const GiverConfirmationModal = (props: {
           size="sm"
           color="default"
           variant="flat"
-          onClick={() => {
-            navigate('/');
-            handleAbort();
-          }}
+          onClick={() => handleAbort(true)}
         >
           Close Transaction
         </Button>

@@ -159,7 +159,7 @@ export const ReceiverConfirmationModal = (props: {
 
   const renderActiveStepActions = () => {
     if(activeStepIdx === 0) return (
-      <Button className="w-full" size="sm" color="danger" variant="flat" onClick={handleAbort}>
+      <Button className="w-full" size="sm" color="danger" variant="flat" onClick={() => handleAbort(true)}>
         Abort Transaction
       </Button>
     );
@@ -177,7 +177,7 @@ export const ReceiverConfirmationModal = (props: {
           <CheckOutlined />
           Transfer (Digital) Money
         </Button>
-        <Button className="w-full" size="sm" color="danger" variant="flat" onClick={handleAbort}>
+        <Button className="w-full" size="sm" color="danger" variant="flat" onClick={() => handleAbort(true)}>
           Abort Transaction
         </Button>
       </div>
@@ -197,16 +197,13 @@ export const ReceiverConfirmationModal = (props: {
             <CheckOutlined />
             I've received the cash
           </Button>
-          <Button className="w-full" size="sm" color="danger" variant="flat" onClick={handleAbort}>
+          <Button className="w-full" size="sm" color="danger" variant="flat" onClick={() => handleAbort(true)}>
             Abort Transaction
           </Button>
         </div>
       ) : (
         <Button className="w-full" size="md" color="default" variant="flat" 
-        onClick={() => {
-          navigate('/');
-          handleAbort();
-        }}>
+        onClick={() => handleAbort(true)}>
           Close Transaction
         </Button>
       )

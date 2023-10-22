@@ -37,12 +37,13 @@ export const GlobalContextProvider = (props: PropsWithChildren) => {
       .catch((err) => console.error("Couldn't update request", err, updatedRequest));
   }
 
-  const handleAbort = () => {
+  const handleAbort = (dashboardRedirect: boolean = true) => {
     if(!activeRequest) return;
     return deleteRequest()
       .then(() => {
         setRequestRole(null);
         setActiveRequest(null);
+        if(dashboardRedirect) navigate('/');
       })
       .catch((err) => console.error("Couldn't abort transaction / delete request", err, activeRequest));
   }
