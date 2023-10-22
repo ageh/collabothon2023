@@ -5,10 +5,16 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
-  Button
+  Button,
+  Avatar
 } from "@nextui-org/react";
 import { GlobalContext } from "../../../GlobalContext";
 import { useNavigate } from "react-router-dom";
+import commissionIconSrc from "../../../assets/icons/commission.svg";
+import distanceIconSrc from "../../../assets/icons/distance.svg";
+import rating_icon_handshake_yellow from "../../../assets/rating_icon_handshake_yellow.svg";
+import rating_icon_handshake_grey from "../../../assets/rating_icon_handshake_grey.svg";
+import rating_icon_handshake_half from "../../../assets/rating_icon_handshake_half.svg";
 
 export const RequestPreviewModal = (props: {
   isOpen: boolean,
@@ -22,9 +28,55 @@ export const RequestPreviewModal = (props: {
       <ModalContent>
         <ModalHeader className="flex flex-col gap-1">New Cash Request</ModalHeader>
         <ModalBody>
-          <p className="text-md text-gray-800 text-center">
-            {JSON.stringify(activeRequest)}
-          </p>
+          <div className="flex items-center mx-auto">
+            <Avatar
+              isBordered
+              as="button"
+              className="ring-secondary transition-transform mr-2"
+              color="primary"
+              name="John Doe"
+              size="sm"
+              src="https://i1.sndcdn.com/avatars-000321234849-ytct1h-t500x500.jpg"
+            />
+            <div className="user-info ml-2">
+              <h2 className="font-medium text-xl cc--text-primary text-center">Robert</h2>
+            </div>
+          </div>
+          <div className="inline items-center space-x-1 mx-auto">
+            <img
+              src={rating_icon_handshake_yellow}
+              className="inline w-8 h-8"
+            />
+            <img
+              src={rating_icon_handshake_yellow}
+              className="inline w-8 h-8"
+            />
+            <img
+              src={rating_icon_handshake_yellow}
+              className="inline w-8 h-8"
+            />
+            <img
+              src={rating_icon_handshake_half}
+              className="inline w-8 h-8"
+            />
+            <img
+              src={rating_icon_handshake_grey}
+              className="inline w-8 h-8"
+            />
+          </div>
+
+          <p className="text-md text-gray-500 text-center">needs</p>
+          <h2 className="font-medium text-6xl cc--text-primary text-center">
+            {activeRequest?.amount}€
+          </h2>
+          <h3 className="font-medium text-md cc--text-primary text-center">
+            <img src={commissionIconSrc} className="inline-block w-5 h-5 mr-2" />
+            Commission: {activeRequest?.commission}€
+          </h3>
+          <h3 className="font-medium text-md cc--text-primary text-center">
+            <img src={distanceIconSrc} className="inline-block w-5 h-5 mr-2" />
+            Distance: {activeRequest?.distance}m
+          </h3>
         </ModalBody>
         <ModalFooter>
           <Button
