@@ -15,13 +15,11 @@ import rating_icon_handshake_yellow from "../../../assets/rating_icon_handshake_
 import rating_icon_handshake_grey from "../../../assets/rating_icon_handshake_grey.svg";
 import rating_icon_handshake_half from "../../../assets/rating_icon_handshake_half.svg";
 import profile from "../../../assets/profile.png";
-import { useNavigate } from "react-router-dom";
 
 export const ReceiverConfirmationModal = (props: {
   isOpen: boolean,
   onClose: () => void
 }) => {
-  const navigate = useNavigate();
   const { activeRequest, handleAbort, handleUpdate } = useContext(GlobalContext);
 
   const steps = [ 'Identification', 'Transfer', 'Confirm' ];
