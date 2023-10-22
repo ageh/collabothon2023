@@ -83,7 +83,7 @@ export const GiverConfirmationModal = (props: {
       <>
         <Spinner className="block mx-auto" />
         <p className="text-md text-gray-800 text-center">
-          Please wait until XYZ has transferred the (digital) money:
+          Please wait until Robert has transferred the (digital) money:
         </p>
         <h2 className="font-medium text-2xl cc--text-primary text-center">
           {activeRequest?.amount}€
@@ -99,7 +99,7 @@ export const GiverConfirmationModal = (props: {
         <>
           <Spinner className="block mx-auto" />
           <p className="text-md text-gray-800 text-center">
-            XYZ has transferred the (digital) money, please handover the following amount in cash:
+            Robert has transferred the (digital) money, please handover the following amount in cash:
           </p>
           <h2 className="font-medium text-2xl cc--text-primary text-center">
             {activeRequest?.amount}€
@@ -116,7 +116,7 @@ export const GiverConfirmationModal = (props: {
             <h1 className="font-bold text-xl mt-4">Transfer Completed</h1>
             <Divider className="my-5" />
 
-            <h2 className="font-bold my-3">Rate John</h2>
+            <h2 className="font-bold my-3">Rate Robert</h2>
 
             <div>
               <img

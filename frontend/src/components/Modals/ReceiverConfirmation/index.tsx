@@ -74,7 +74,7 @@ export const ReceiverConfirmationModal = (props: {
     if(activeStepIdx === 1) return (
       <>
         <p className="text-md text-gray-800 text-center"> 
-          Great, seems like you've met XYZ.
+          Great, seems like you've met Greta.
           <br/>
           Please confirm that you want to proceed and transfer the following amount to him/her:
         </p>
@@ -88,10 +88,10 @@ export const ReceiverConfirmationModal = (props: {
       (!activeRequest?.handoverConfirmed) ? (
         <>
           <p className="text-md text-center"> 
-            Your (digital) money has been transferred successfully to XYZ.
+            Your (digital) money has been transferred successfully to Greta.
           </p>
           <p className="text-md text-gray-800 text-center">
-            After XYZ handed the cash to you, please confirm that you've actually received the following amount:
+            After Greta handed the cash to you, please confirm that you've actually received the following amount:
           </p>
           <h2 className="font-medium text-2xl cc--text-primary text-center">
             {activeRequest?.amount}€
@@ -104,7 +104,7 @@ export const ReceiverConfirmationModal = (props: {
             <h1 className="font-bold text-xl mt-4">Transfer Completed</h1>
             <Divider className="my-5" />
 
-            <h2 className="font-bold my-3">Rate Robert</h2>
+            <h2 className="font-bold my-3">Rate Greta</h2>
 
             <div>
               <img
